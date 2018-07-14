@@ -1,0 +1,58 @@
+extends layout
+
+block content
+    h1 #{orderId}
+
+    case statusCode
+        when 400
+            h2 Status: #{statusCode} - #{statusMessage}
+            p Message: #{result.message}<br>
+            a(href='../') На главную<br>
+            - break
+        when 401
+            h2 Status: #{statusCode} - #{statusMessage}
+            p
+            a(href='../') На главную<br>
+            - break
+        when 200
+            p Order Number: SP #{result.orderId}<br> Holds: #{result.holdCode}<br> Comments: #{result.deliveryInstructions}
+            p Sold To: #{result.shipToCode}<br>Ship To: #{result.deliveryAddress}<br>Delivery Date: #{result.shipDate}
+
+            table(class='table')
+
+                tr
+                    th LineId
+
+                    th Product Id
+
+                    th Manufacturer Code
+
+                    th Requested Quantity
+
+                    th Shipped Quantity
+
+                    th Price
+
+
+                each orderLine, index in result.orderDetails
+
+                    tr
+
+                        td #{orderLine.lineID}
+
+                        td #{orderLine.productID}
+
+                        td #{orderLine.manufacturerCode}
+
+                        td #{orderLine.quantityRequested}
+
+                        td #{orderLine.quantityShipped}
+
+                        td #{orderLine.price}
+            p
+            a(href='../') На главную<br>
+
+        default
+            p Error happened
+            p
+            a(href='../') На главную<br>

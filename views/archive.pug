@@ -1,0 +1,59 @@
+extends layout
+
+block content
+
+    h1 Archive
+
+    <!-- Search input -->
+
+    input(
+    class='form-control'
+    id='myInput'
+    type='text'
+    placeholder='Search'
+    )
+
+    p
+
+    <!-- Data table-->
+
+    table(class='table table-hover table-bordered')
+
+        thead
+
+            tr
+                th Customer
+
+                th Order Number
+
+                th Order Date
+
+                th Delivery Date
+
+                th Delivery Plase
+
+                th Action
+
+            each order, index in result
+
+                tbody(id='myTable')
+
+                    tr
+
+                        td #{order['ORDER']['HEAD'][0]['BUYER']}
+
+                        td #{order['ORDER'].NUMBER}
+
+                        td #{order['ORDER'].DATE}
+
+                        td #{order['ORDER'].DELIVERYDATE}
+
+                        td #{order['ORDER']['HEAD'][0]['DELIVERYPLACE'][0]}
+
+                        td
+                            a(class='text-primary' href='../archive/details/' + order['ORDER'].NUMBER) Details<br>
+                            a(class='text-primary' href='../archive/details/' + order['ORDER'].NUMBER) Results<br>
+
+    p
+
+    a(href='../') На главную<br>
