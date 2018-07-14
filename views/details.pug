@@ -1,0 +1,70 @@
+extends layout
+
+block content
+
+    h1 #{orderId}
+
+    p
+
+    <!-- Search input -->
+
+    input(
+    class='form-control'
+    id='myInput'
+    type='text'
+    placeholder='Search'
+    )
+
+    p
+
+    table(class='table table-hover table-bordered')
+
+        thead
+
+            tr
+                th #
+
+                th Product
+
+                th Description
+
+                th Item Number
+
+                th Customer ProductId
+
+                th Quantity
+
+                th Price
+
+                th Price with VAT
+
+            each orderLine, index in result
+
+                tbody(id='myTable')
+
+                    tr
+
+                        td #{orderLine['POSITIONNUMBER'][0]}
+
+                        td #{orderLine['PRODUCT'][0]}
+
+                        td #{orderLine['CHARACTERISTIC'][0]['DESCRIPTION'][0]}
+
+                        td #{orderLine['PRODUCTIDSUPPLIER'][0]}
+
+                        td #{orderLine['PRODUCTIDBUYER'][0]}
+
+                        td #{orderLine['ORDEREDQUANTITY'][0]}
+
+                        td #{orderLine['ORDERPRICE'][0]}
+
+                        td #{orderLine['PRICEWITHVAT'][0]}
+
+
+    p
+
+    a(href='../') На главную<br>
+
+    p
+
+    a(href='../createOrder/' + orderId) Create Order<br>

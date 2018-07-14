@@ -27,4 +27,30 @@ router.get('/', function(req, res, next) {
 
 });
 
+/* GET order details page. */
+
+router.get('/details/:id', function(req, res, next) {
+
+    readFiles(sourceFolder)
+        .then( allContents => {
+
+            var results = [];
+
+            allContents.forEach(function (item) {
+                parser.parseString(item[1], function (err, result) {
+                    results.push(result);
+                })
+            })
+
+            results.forEach(function (order) {
+                if (order['ORDER'].NUMBER == req.params.id ) {
+
+                    res.render('details', { orderId:  req.params.id, result: order['ORDER']['HEAD'][0]['POSITION'] });
+                }
+            })
+
+        }, error => console.log(error));
+
+});
+
 module.exports = router;
