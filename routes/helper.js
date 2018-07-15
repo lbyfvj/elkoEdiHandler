@@ -1,4 +1,5 @@
 var fs = require('fs');
+var path          = require('path');
 
 module.exports = readFiles = (dirname) => {
 
@@ -8,6 +9,24 @@ module.exports = readFiles = (dirname) => {
     });
 
     return readDirPr.then( filenames => Promise.all(filenames.map((filename) => {
+        return new Promise ( (resolve, reject) => {
+            fs.readFile(dirname + filename, 'utf-8',
+                (err, content) => (err) ? reject(err) : resolve([filename, content]));
+        })
+    })).catch( error => Promise.reject(error)))
+};
+
+module.exports = readFolder = (dirname, extFilter) => {
+
+    const readDirPr = new Promise( (resolve, reject) => {
+        fs.readdir(dirname,
+            (err, filenames) => (err) ? reject(err) : resolve(filenames))
+    });
+
+    return readDirPr.then( filenames =>
+        Promise.all(filenames
+                        .filter((filename) => { return path.extname(filename) === extFilter; })
+                        .map((filename) => {
         return new Promise ( (resolve, reject) => {
             fs.readFile(dirname + filename, 'utf-8',
                 (err, content) => (err) ? reject(err) : resolve([filename, content]));

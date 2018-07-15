@@ -34,28 +34,32 @@ router.get('/', function(req, res, next) {
 
 /* GET order details page. */
 
-router.get('/details/:id', function(req, res, next) {
+router.get(['/details/:id', '/details/:id/:archive', '/details/:id/:archive/:fileType'], function(req, res, next) {
 
-    readFiles(sourceFolder)
-        .then( allContents => {
+  var folderToRead = (req.params.archive == 'archive') ? archiveFolder : sourceFolder;
 
-            var results = [];
+  var fileExtension = (req.params.fileType == 'json') ? '.' + req.params.fileType : '.xml';
 
-            allContents.forEach(function (item) {
-                parser.parseString(item[1], function (err, result) {
-                    results.push(result);
-                })
-            })
+  console.log(fileExtension);
 
-            results.forEach(function (order) {
-                if (order['ORDER'].NUMBER == req.params.id ) {
+  readFolder(folderToRead, fileExtension)
+      .then( allContents => {
 
-                    res.render('details', { orderId:  req.params.id, result: order['ORDER']['HEAD'][0]['POSITION'] });
-                }
-            })
+        var results = [];
 
-        }, error => console.log(error));
+        allContents.forEach(function (item) {
+          parser.parseString(item[1], function (err, result) {
+            results.push(result);
+          })
+        })
 
+          results.forEach(function (order) {
+            if (order['ORDER'].NUMBER == req.params.id ) {
+              res.render('details', { orderId:  req.params.id, result: order['ORDER']['HEAD'][0]['POSITION'] });
+            }
+          })
+
+      }, error => console.log(error));
 });
 
 router.get('/createOrder/:id', function(req, res, next) {
