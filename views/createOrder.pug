@@ -7,12 +7,9 @@ block content
         when 400
             h2 Status: #{statusCode} - #{statusMessage}
             p Message: #{result.message}<br>
-            a(href='../') На главную<br>
             - break
         when 401
             h2 Status: #{statusCode} - #{statusMessage}
-            p
-            a(href='../') На главную<br>
             - break
         when 200
             p Order Number: SP #{result.orderId}<br> Holds: #{result.holdCode}<br> Comments: #{result.deliveryInstructions}
@@ -49,10 +46,6 @@ block content
                         td #{orderLine.quantityShipped}
 
                         td #{orderLine.price}
-            p
-            a(href='../') На главную<br>
 
         default
             p Error happened
-            p
-            a(href='../') На главную<br>

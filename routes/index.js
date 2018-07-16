@@ -40,24 +40,42 @@ router.get(['/details/:id', '/details/:id/:archive', '/details/:id/:archive/:fil
 
   var fileExtension = (req.params.fileType == 'json') ? '.' + req.params.fileType : '.xml';
 
-  console.log(fileExtension);
-
   readFolder(folderToRead, fileExtension)
       .then( allContents => {
 
         var results = [];
 
         allContents.forEach(function (item) {
-          parser.parseString(item[1], function (err, result) {
-            results.push(result);
-          })
+
+          if (fileExtension == '.xml') {
+            parser.parseString(item[1], function (err, result) {
+              results.push(result);
+            })
+          } else {
+            results.push(JSON.parse(item[1]))
+          }
+
         })
 
-          results.forEach(function (order) {
-            if (order['ORDER'].NUMBER == req.params.id ) {
-              res.render('details', { orderId:  req.params.id, result: order['ORDER']['HEAD'][0]['POSITION'] });
-            }
-          })
+        results.forEach(function (order) {
+          if (fileExtension == '.json') {
+              console.log('vkjfsdnvckjdsfnvcksd');
+              console.log(order.deliveryInstructions.substring(14,24));
+              if (order.deliveryInstructions.substring(14,24) == req.params.id) {
+                  res.render('createOrder', {
+                      orderId: req.params.id,
+                      statusCode: 200,
+                      statusMessage: '',
+                      result: order
+                  });
+              }
+
+          } else {
+              if (order['ORDER'].NUMBER == req.params.id ) {
+                res.render('details', { orderId:  req.params.id, result: order['ORDER']['HEAD'][0]['POSITION'] });
+              }
+          }
+        })
 
       }, error => console.log(error));
 });
