@@ -24,11 +24,9 @@ block content
             tr
                 th #
 
-                th Product
+                th Item Number
 
                 th Description
-
-                th Item Number
 
                 th Customer ProductId
 
@@ -46,11 +44,9 @@ block content
 
                         td #{orderLine['POSITIONNUMBER'][0]}
 
-                        td #{orderLine['PRODUCT'][0]}
+                        td #{orderLine['PRODUCTIDSUPPLIER'][0]}
 
                         td #{orderLine['CHARACTERISTIC'][0]['DESCRIPTION'][0]}
-
-                        td #{orderLine['PRODUCTIDSUPPLIER'][0]}
 
                         td #{orderLine['PRODUCTIDBUYER'][0]}
 
@@ -63,4 +59,4 @@ block content
 
     p
 
-    a(href='../createOrder/' + orderId) Create Order<br>
+    a(href='../createOrder/' + orderId).btn.btn-success.btn-sm Create Order<br>

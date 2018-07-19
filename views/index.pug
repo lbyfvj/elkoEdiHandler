@@ -4,18 +4,13 @@ block content
 
   <!-- Search input -->
 
-  input(
-  class='form-control'
-  id='myInput'
-  type='text'
-  placeholder='Search'
-  )
+  input(id='myInput' type='text' placeholder='Search').form-control
 
   p
 
   <!-- Data table-->
 
-  table(class='table table-hover table-bordered')
+  table.table.table-hover.table-bordered
 
     thead
 
@@ -50,7 +45,9 @@ block content
             td #{order['ORDER']['HEAD'][0]['DELIVERYPLACE'][0]}
 
             td
-              a(class='text-primary' href='../createOrder/' + order['ORDER'].NUMBER) Create Order<br>
-              a(class='text-info' href='../details/' + order['ORDER'].NUMBER) View Details<br>
-              a(class='text-danger' href='') Delete
-
+              div.dropdown
+                a(href='#' data-toggle='dropdown').dropdown-toggle Action
+                div.dropdown-menu
+                  a(href='../createOrder/' + order['ORDER'].NUMBER).dropdown-item Create Order
+                  a(href='../details/' + order['ORDER'].NUMBER).dropdown-item View details
+                  a(href='#').dropdown-item Delete

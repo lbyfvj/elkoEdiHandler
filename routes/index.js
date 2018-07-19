@@ -8,13 +8,16 @@ var request       = require('request');
 
 var helper        = require('./helper');
 
-var sourceFolder  = '/Users/ivantsyganok/Documents/NodeJS/EDI/public/xmlfiles/2/';
-var archiveFolder = '/Users/ivantsyganok/Documents/NodeJS/EDI/public/xmlfiles/archive/';
+//var sourceFolder  = '/Users/ivantsyganok/Documents/NodeJS/EDI/public/xmlfiles/2/';
+//var archiveFolder = '/Users/ivantsyganok/Documents/NodeJS/EDI/public/xmlfiles/archive/';
+
+var sourceFolder  = 'E:/1/';
+var archiveFolder = 'E:/1/archive/';
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
 
-    readFiles(sourceFolder)
+    readFolder(sourceFolder, '.xml')
         .then( allContents => {
 
             var results = [];
@@ -82,7 +85,7 @@ router.get(['/details/:id', '/details/:id/:archive', '/details/:id/:archive/:fil
 
 router.get('/createOrder/:id', function(req, res, next) {
 
-    readFiles(sourceFolder)
+    readFolder(sourceFolder, '.xml')
         .then( allContents => {
 
             var results = [];
@@ -181,23 +184,20 @@ router.get('/createOrder/:id', function(req, res, next) {
 
 router.get('/archive', function(req, res, next) {
 
-    readFiles(archiveFolder)
+    readFolder(archiveFolder, '.xml')
         .then( allContents => {
 
             var results = [];
 
             allContents.forEach(function (item) {
-                if (path.extname(item[0]) == '.xml') {
-                    parser.parseString(item[1], function (err, result) {
-                        results.push(result);
-                    })
-                }
+                parser.parseString(item[1], function (err, result) {
+                    results.push(result);
+                })
             })
 
             res.render('archive', { result:  results });
 
         }, error => console.log(error));
-
 });
 
 module.exports = router;

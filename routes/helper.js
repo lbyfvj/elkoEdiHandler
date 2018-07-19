@@ -1,6 +1,7 @@
 var fs = require('fs');
 var path          = require('path');
 
+/*
 module.exports = readFiles = (dirname) => {
 
     const readDirPr = new Promise( (resolve, reject) => {
@@ -15,7 +16,7 @@ module.exports = readFiles = (dirname) => {
         })
     })).catch( error => Promise.reject(error)))
 };
-
+*/
 module.exports = readFolder = (dirname, extFilter) => {
 
     const readDirPr = new Promise( (resolve, reject) => {

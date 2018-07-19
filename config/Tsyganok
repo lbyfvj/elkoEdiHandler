@@ -1,13 +1,13 @@
 {
-  "Name": "Tsyganok",
-  "GLN": "4829900023800",
-  "Login": "IvanT",
-  "Password": "q1w2e3r4",
-  "ShipTo": [
-    {
-      "GLN": "4829900023806",
-      "JDE Number": "6011124",
-      "Delivery Address": "Kyiv, Kozatska str. 120/4"
-    }
-  ]
-}
+   "Name": "Tsyganok",
+   "GLN": "4829900023800",
+   "Login": "IvanT",
+   "Password": "q1w2e3r4",
+   "ShipTo": [
+     {
+       "GLN": "4829900023806",
+       "JDE Number": "6011124",
+       "Delivery Address": "Kyiv, Kozatska str. 120/4"
+     }
+   ]
+ }
